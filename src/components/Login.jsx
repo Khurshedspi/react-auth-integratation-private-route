@@ -4,7 +4,7 @@ import { AuthContext } from "../providers/AuthProvider";
 
 const Login = () => {
     const navigate = useNavigate();
-    const {signInUser} = useContext(AuthContext);
+    const {signInUser, signInWithGoogle} = useContext(AuthContext);
     
 
 
@@ -25,6 +25,16 @@ const Login = () => {
         .catch((error)=>{
             console.log('ERROR', error.message);
           
+        })
+    }
+    const handleGoogleSignIn = () =>{
+        signInWithGoogle()
+        .then((result) =>{
+            console.log(result.user);
+            navigate('/')
+        })
+        .catch((error)=>{
+            console.log('ERROR', error.message);
         })
     }
 
@@ -72,6 +82,7 @@ const Login = () => {
           <p className="p-1 mb-4">
             New to this website ? Please <Link to="/register"> Register</Link>
           </p>
+          <p onClick={handleGoogleSignIn} className="btn btn-ghost">Google</p>
         </div>
       </div>
     </div>
